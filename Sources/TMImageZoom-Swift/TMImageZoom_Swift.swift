@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TMImageZoom {
+public class TMImageZoom {
     static let TMImageZoomStartedZoomNotification = Notification.Name("TMImageZoom_Started_Zoom_Notification")
     static let TMImageZoomEndedZoomNotification = Notification.Name("TMImageZoom_Ended_Zoom_Notification")
     
