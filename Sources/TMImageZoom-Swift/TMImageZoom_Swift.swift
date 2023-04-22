@@ -51,25 +51,27 @@ public class TMImageZoom {
 
         // Start handling gestures if state = .began and not already handling gestures.
         if !isHandlingGesture && theGesture.state == .began {
-            hostImageView = imageView
-            imageView.isHidden = true
+            // Get current window and set starting vars
+            let currentWindow = UIApplication.shared.keyWindow
+            firstCenterPoint = theGesture.location(in: currentWindow)
 
             // Convert local point to window coordinates
             let point = imageView.convert(imageView.bounds.origin, to: nil)
             startingRect = CGRect(x: point.x, y: point.y, width: imageView.frame.width, height: imageView.frame.height)
 
-            // Post Notification
-            NotificationCenter.default.post(name: TMImageZoom.TMImageZoomStartedZoomNotification, object: nil)
-
-            // Get current window and set starting vars
-            let currentWindow = UIApplication.shared.keyWindow
-            firstCenterPoint = theGesture.location(in: currentWindow)
-
             // Init zoom ImageView
             currentImageView = UIImageView(image: imageView.image)
             currentImageView?.contentMode = imageView.contentMode
             currentImageView?.bounds = startingRect
+            let imageViewBoundsCenter = CGPoint(x: imageView.bounds.width * 0.5, y: imageView.bounds.height * 0.5)
+            currentImageView?.center = imageView.convert(imageViewBoundsCenter, to: currentWindow)
             currentWindow?.addSubview(currentImageView!)
+
+            hostImageView = imageView
+            imageView.isHidden = true
+
+            // Post Notification
+            NotificationCenter.default.post(name: TMImageZoom.TMImageZoomStartedZoomNotification, object: nil)
         }
 
         // Update scale & center
@@ -77,6 +79,12 @@ public class TMImageZoom {
             // If only one finger is detected, update the lastPinchCenter
             if theGesture.numberOfTouches == 1 {
                 let currentTouchPosition = theGesture.location(ofTouch: 0, in: imageView)
+            
+                if lastTouchPosition == CGPoint.zero {
+                    lastTouchPosition = currentTouchPosition
+                    return
+                }
+
                 let translation = CGPoint(x: currentTouchPosition.x - lastTouchPosition.x, y: currentTouchPosition.y - lastTouchPosition.y)
                 let newCenter = CGPoint(x: lastPinchCenter.x + translation.x, y: lastPinchCenter.y + translation.y)
                 currentImageView?.center = newCenter
@@ -99,6 +107,9 @@ public class TMImageZoom {
 
                 // Reset gesture scale
                 theGesture.scale = 1
+                
+                // Reset lastTouchPosition when two fingers are detected
+                lastTouchPosition = CGPoint.zero
             }
 
             // Update lastPinchCenter after handling the gesture
