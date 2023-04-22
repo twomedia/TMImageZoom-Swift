@@ -53,7 +53,7 @@ public class TMImageZoom {
             imageView.isHidden = true
             
             // Convert local point to window coordinates
-            let point = imageView.convert(imageView.frame.origin, to: nil)
+            let point = imageView.convert(imageView.bounds.origin, to: nil)
             startingRect = CGRect(x: point.x, y: point.y, width: imageView.frame.width, height: imageView.frame.height)
             
             // Post Notification
@@ -66,7 +66,7 @@ public class TMImageZoom {
             // Init zoom ImageView
             currentImageView = UIImageView(image: imageView.image)
             currentImageView?.contentMode = imageView.contentMode
-            currentImageView?.frame = startingRect
+            currentImageView?.bounds = startingRect
             currentWindow?.addSubview(currentImageView!)
         }
         
