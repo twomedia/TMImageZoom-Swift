@@ -21,8 +21,5 @@ let package = Package(
         .target(
             name: "TMImageZoom-Swift",
             dependencies: []),
-        .testTarget(
-            name: "TMImageZoom-SwiftTests",
-            dependencies: ["TMImageZoom-Swift"]),
     ]
 )
