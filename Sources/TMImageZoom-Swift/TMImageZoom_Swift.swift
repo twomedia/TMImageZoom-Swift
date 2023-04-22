@@ -21,9 +21,9 @@ public class TMImageZoom {
         return hostImageView != nil
     }
     
-    static let shared = TMImageZoom()
+    static public let shared = TMImageZoom()
     
-    func gestureStateChanged(_ gesture: UIGestureRecognizer, withZoomImageView imageView: UIImageView) {
+    public func gestureStateChanged(_ gesture: UIGestureRecognizer, withZoomImageView imageView: UIImageView) {
         // Ensure user is passing correct UIPinchGestureRecognizer class.
         guard let theGesture = gesture as? UIPinchGestureRecognizer else {
             print("(TMImageZoom): Must be using a UIPinchGestureRecognizer, currently you're using a: \(gesture.self)")
@@ -100,7 +100,7 @@ public class TMImageZoom {
         }
     }
     
-    private func resetImageZoom() {
+    public func resetImageZoom() {
         // If not already animating
         if isAnimatingReset || !isHandlingGesture {
             return
