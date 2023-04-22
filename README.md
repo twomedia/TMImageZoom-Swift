@@ -1,7 +1,7 @@
 # TMImageZoom
 Easily add zoom functionality similar to Instagram
 
-<img src="preview.gif" width="320" height="688" />
+<img src="preview.gif" width="320" height="688" /><img src="preview2.gif" width="320" height="688" />
 
 ## Getting Started
 
