@@ -91,8 +91,7 @@ public class TMImageZoom {
                 lastTouchPosition = currentTouchPosition
             } else {
                 // Calculate new image scale.
-                let currentScale = currentImageView!.frame.width / startingRect.width
-                let newScale = currentScale * theGesture.scale
+                let newScale = theGesture.scale
                 currentImageView?.frame = CGRect(x: currentImageView!.frame.origin.x,
                                                  y: currentImageView!.frame.origin.y,
                                                  width: startingRect.width * newScale,
@@ -104,9 +103,6 @@ public class TMImageZoom {
                 let centerYDif = (firstCenterPoint.y - theGesture.location(in: currentWindow).y) + (firstCenterPoint.y.distance(to: startingRect.midY) * (1-newScale))
                 currentImageView?.center = CGPoint(x: (startingRect.origin.x + (startingRect.size.width / 2)) - centerXDif,
                                                    y: (startingRect.origin.y + (startingRect.size.height / 2)) - centerYDif)
-
-                // Reset gesture scale
-                theGesture.scale = 1
                 
                 // Reset lastTouchPosition when two fingers are detected
                 lastTouchPosition = CGPoint.zero
