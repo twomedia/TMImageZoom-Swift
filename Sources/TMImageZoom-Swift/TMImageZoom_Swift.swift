@@ -100,8 +100,8 @@ public class TMImageZoom {
 
                 // Calculate new center
                 let currentWindow = UIApplication.shared.keyWindow
-                let centerXDif = firstCenterPoint.x - theGesture.location(in: currentWindow).x
-                let centerYDif = firstCenterPoint.y - theGesture.location(in: currentWindow).y
+                let centerXDif = (firstCenterPoint.x - theGesture.location(in: currentWindow).x) + (firstCenterPoint.x.distance(to: startingRect.midX) * (1-newScale))
+                let centerYDif = (firstCenterPoint.y - theGesture.location(in: currentWindow).y) + (firstCenterPoint.y.distance(to: startingRect.midY) * (1-newScale))
                 currentImageView?.center = CGPoint(x: (startingRect.origin.x + (startingRect.size.width / 2)) - centerXDif,
                                                    y: (startingRect.origin.y + (startingRect.size.height / 2)) - centerYDif)
 
