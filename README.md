@@ -10,7 +10,7 @@ Adding TMImageZoom is quick and easy with [Swift Package Manager](https://swift.
 ### Installing
 
 Start by adding a UIPinchGestureRecognizer to the view you would like to receive touches and create a pinch: method
-```
+```swift
 let pinchZoom = UIPinchGestureRecognizer(target: self, action: #selector(pinch(_:)))
 pinchZoom.delegate = self
 addGestureRecognizer(pinchZoom)
@@ -21,7 +21,7 @@ addGestureRecognizer(pinchZoom)
 ```
 
 Then inside the pinch: method, use the shared instance of TMImageZoom and call the gestureStateChanged: method. We will pass the gesture as well as the UIImageView we would like to zoom.
-```
+```swift
 @objc func pinch(_ gesture: UIPinchGestureRecognizer) {
     TMImageZoom.shared.gestureStateChanged(gesture, withZoomImageView: imageView)
 }
@@ -32,12 +32,12 @@ And that’s it! You can now pinch zoom the image just like Instagram!
 ## FAQ
 
 “How do I know if the user is currently zooming the image?”
-```
+```swift
 TMImageZoom.shared.isHandlingGesture
 ```
 
 “How can I manually end the zoom?”
-```
+```swift
 TMImageZoom.shared.resetImageZoom()
 ```
 
